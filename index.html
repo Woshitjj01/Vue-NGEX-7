@@ -17,6 +17,15 @@
       font-weight: normal;
       font-style: normal;
     }
+    
+    body {
+      background-image: url('./assets/bg-9.webp');
+      background-color: #f0f8ff;
+      color: #333;
+    }
+    h1{
+      font-family: 'Luna';
+    }
 
     /* Use more styles as needed */
   
@@ -26,58 +35,88 @@
 
   <!-- Complete this part -->
 
+  <div id="app" class="container text-center">
+    <h1 class="mb-4">Which Ghibli Character Are You?</h1>
+    <p class="lead">Select your traits</p>
+    <div class="row">
+      <div class="col-md-3 form-check" v-for="trait in availableTraits" :key="trait">
+        <input class="form-check-input" type="checkbox" :value="trait" v-model="selectedTraits" :id="'trait-' + trait">
+        <label class="form-check-label" :for="'trait-' + trait">{{ trait }}</label>
+      </div>
+    </div>
+    <button class="btn btn-primary" @click="findCharacter">Find my Character</button>
+  
+    <div v-if="result" class="text-center mt-4">
+      <h2 class="mb-3">You are: {{ result.name }}</h2>
+      <img :src="result.image" alt="Character Image" class="character-img mb-3">
+      <p><strong>Traits:</strong> {{ result.traits.join(', ') }}</p>
+      <p>{{ result.description }}</p>
+    </div>
+  
+    <div v-if="noResult" class="text-center mt-4">
+      <h2 class="mb-3">No matching character found!</h2>
+      <p>Try selecting different traits.</p>
+    </div>
+  </div>
+  
+  
+      
+
 <script>
 Vue.createApp({
   data() {
     return {
       /* complete this part */
+      availableTraits: ['Kind', 'Quiet', 'Protective', 'Empathetic', 'Brave', 'Adventurous', 'Independent', 'Hardworking', 'Curious', 'Witty', 'Mischievous', 'Funny', 'Magical', 'Mysterious', 'Loyal', 'Dreamy', 'Ambitious'],
+      selectedTraits: [],
+
       characters: [
         {
           name: 'Totoro',
           traits: ['Kind', 'Quiet', 'Protective', 'Empathetic'],
-          image: 'assets/totoro.png',
+          image: './assets/totoro.png',
           description: 'Totoro is a gentle forest spirit who watches over children and brings joy and magic.'
         },
         {
           name: 'Kiki',
           traits: ['Brave', 'Adventurous', 'Independent', 'Hardworking'],
-          image: 'assets/kiki.webp',
+          image: './assets/kiki.webp',
           description: 'Kiki is a young witch-in-training, brave and eager to find her place in the world.'
         },
         {
           name: 'Chihiro',
           traits: ['Curious', 'Brave', 'Kind', 'Empathetic'],
-          image: 'assets/chihiro.png',
+          image: './assets/chihiro.png',
           description: 'Chihiro overcomes fear and shows great courage and kindness in a magical world.'
         },
         {
           name: 'Calcifer',
           traits: ['Mischievous', 'Protective', 'Witty'],
-          image: 'assets/calcifer.jpeg',
+          image: './assets/calcifer.jpeg',
           description: 'Calcifer is a fiery, funny spirit with a strong personality and a warm heart... literally!'
         },
         {
           name: 'Howl',
           traits: ['Mysterious', 'Brave', 'Dreamy', 'Witty'],
-          image: 'assets/howl.jpg',
+          image: './assets/howl.jpg',
           description: 'Howl is a charming and enigmatic wizard who learns to love and protect selflessly.'
         },
         {
           name: 'San',
           traits: ['Brave', 'Loyal', 'Independent', 'Protective'],
-          image: 'assets/san.jpg',
+          image: './assets/san.jpg',
           description: 'San is a fierce warrior raised by wolves, deeply connected to nature and loyalty.'
         },
         {
           name: 'Ponyo',
           traits: ['Curious', 'Dreamy', 'Mischievous', 'Funny', 'Magical'],
-          image: 'assets/ponyo.jpeg',
+          image: './assets/ponyo.jpeg',
           description: 'Ponyo is a magical fish-girl with an adventurous heart and love for the surface world.'
         },
         {
           name: 'Arrietty',
           traits: ['Curious', 'Adventurous', 'Brave', 'Ambitious'],
-          image: 'assets/arrietty.webp',
+          image: './assets/arrietty.webp',
           description: 'Arrietty is a tiny borrower who dreams of exploring the world beyond her home.'
         }
       ],
@@ -107,6 +146,8 @@ Vue.createApp({
         this.noResult = true;
       }
     }
+    
+
   }
 }).mount("#app");
 </script>
